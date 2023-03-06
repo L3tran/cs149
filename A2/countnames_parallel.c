@@ -83,5 +83,33 @@ int main(int argc, char *argv[]) {
             exit(0);
         }
     }
+    while ((wait(NULL)) > 0) {
+        struct NameCounts currentNameCount[100];
+
+        read(pfds[0], currentNameCount, sizeof(currentNameCount));
+            bool duplicate = false;
+            for(int j=0; j<aggregateNameCount[0].nunNames; j++) {
+
+                if(strcmp(currentNameCount[i].name, aggregateNameCount[j].name)==0) {
+                    duplicate = true;
+                    aggregateNameCount[j].count+=currentNameCount[i].count;
+                }
+            }
+            if(!duplicate) {
+                for (int k = 0; k < 30; k++) {
+                    aggregateNameCount[aggregateNameCount[0].nunNames].name[k] = currentNameCount[i].name[k];
+                }
+                aggregateNameCount[aggregateNameCount[0].nunNames].count = currentNameCount[i].count;
+                aggregateNameCount[0].nunNames++;
+            }
+        }
+    }
+
+    
+    for(int i=0; i<aggregateNameCount[0].nunNames; i++) {
+        fprintf(stdout, "%s: %d\n", aggregateNameCount[i].name, aggregateNameCount[i].count);
+    }
+
     return 0;
+
 }
