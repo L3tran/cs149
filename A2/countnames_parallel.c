@@ -15,6 +15,7 @@ struct NameCounts {
 int main(int argc, char *argv[]) {
     int pfds[2]; //pipe file descriptor
     char name[30];
+    struct NameCounts aggregateNameCount[100];
     struct NameCounts nameCounter[100];
     int lineCounter = 0;
 
